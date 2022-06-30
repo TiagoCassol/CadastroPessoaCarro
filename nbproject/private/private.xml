@@ -3,10 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group name="Geral">
+            <file>file:/C:/Users/casso/OneDrive/Documentos/NetBeansProjects/MCadastroPessoadao/src/br/com/senactech/MCadastroPessoa/view/pessoaCadastro.java</file>
             <file>file:/C:/Users/casso/OneDrive/Documentos/NetBeansProjects/MCadastroPessoadao/src/br/com/senactech/MCadastroPessoa/view/carroCadastro.java</file>
-            <file>file:/C:/Users/casso/OneDrive/Documentos/NetBeansProjects/MCadastroPessoadao/src/br/com/senactech/MCadastroPessoa/dao/CarroDAO.java</file>
-            <file>file:/C:/Users/casso/OneDrive/Documentos/NetBeansProjects/MCadastroPessoadao/src/br/com/senactech/MCadastroPessoa/services/CarroServicos.java</file>
-            <file>file:/C:/Users/casso/OneDrive/Documentos/NetBeansProjects/MCadastroPessoadao/src/mCadastroPessoaJF/MCadastroPessoaJF.java</file>
+            <file>file:/C:/Users/casso/OneDrive/Documentos/NetBeansProjects/MCadastroPessoadao/src/br/com/senactech/MCadastroPessoa/services/PessoaServicos.java</file>
+            <file>file:/C:/Users/casso/OneDrive/Documentos/NetBeansProjects/MCadastroPessoadao/src/br/com/senactech/MCadastroPessoa/dao/PessoaDAO.java</file>
         </group>
     </open-files>
 </project-private>

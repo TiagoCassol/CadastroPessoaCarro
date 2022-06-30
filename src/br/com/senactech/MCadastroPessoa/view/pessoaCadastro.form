@@ -49,7 +49,6 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="jLabel1" alignment="1" max="32767" attributes="0"/>
               <Component id="jSeparator1" alignment="1" max="32767" attributes="0"/>
-              <Component id="jSeparator3" alignment="0" max="32767" attributes="0"/>
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -66,25 +65,24 @@
                               <Component id="jtfNome" max="32767" attributes="0"/>
                               <Component id="jtfEndereco" alignment="0" max="32767" attributes="0"/>
                               <Group type="102" alignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="jtfTelefone" alignment="0" max="32767" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
-                                          <Component id="jRadioButton2" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jtfTelefone" max="32767" attributes="0"/>
+                                          <Group type="103" groupAlignment="1" attributes="0">
                                               <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="jtfCPF" min="-2" pref="162" max="-2" attributes="0"/>
-                                                  <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                                                  <Component id="jRadioButton2" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="jtfCPF" min="-2" pref="180" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="jbPesqCPF" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
+                                  <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jBSalvar" min="-2" max="-2" attributes="0"/>
                                       <Group type="102" attributes="0">
@@ -96,13 +94,6 @@
                               </Group>
                           </Group>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jRadioButton1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jBLimpar" min="-2" max="-2" attributes="0"/>
-                      </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                           <Component id="jbEditar" min="-2" max="-2" attributes="0"/>
@@ -112,6 +103,13 @@
                           <Component id="jbDeletar" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                           <Component id="jBSair" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="jRadioButton1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="jBLimpar" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -133,8 +131,8 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jtfCPF" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jbPesqCPF" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jtfCPF" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -145,8 +143,8 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jtfTelefone" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jtfIdade" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jtfTelefone" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="2" attributes="0">
@@ -156,10 +154,8 @@
                       <Component id="jRadioButton2" alignment="2" min="-2" max="-2" attributes="0"/>
                       <Component id="jBLimpar" alignment="2" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jSeparator3" min="-2" pref="15" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" min="-2" pref="174" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="jScrollPane1" min="-2" pref="188" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jBSair" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -226,27 +222,10 @@
             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfNomeKeyTyped"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="jtfCPF">
-          <Properties>
-            <Property name="toolTipText" type="java.lang.String" value="Somente N&#xfa;meros"/>
-          </Properties>
-          <Events>
-            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfCPFKeyTyped"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JTextField" name="jtfEndereco">
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtfEnderecoActionPerformed"/>
             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfEnderecoKeyTyped"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JTextField" name="jtfTelefone">
-          <Properties>
-            <Property name="toolTipText" type="java.lang.String" value=""/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtfTelefoneActionPerformed"/>
-            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfTelefoneKeyTyped"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="jtfIdade">
@@ -352,8 +331,6 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JSeparator" name="jSeparator3">
-        </Component>
         <Component class="javax.swing.JButton" name="jbDeletar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Deletar"/>
@@ -390,6 +367,23 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbPesqCPFActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JFormattedTextField" name="jtfTelefone">
+          <Properties>
+            <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
+              <Format format="(##)#####-####" subtype="-1" type="5"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JFormattedTextField" name="jtfCPF">
+          <Properties>
+            <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
+              <Format format="###.###.###-##" subtype="-1" type="5"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtfCPFFocusLost"/>
           </Events>
         </Component>
       </SubComponents>

@@ -97,7 +97,7 @@ public class pessoaCadastro extends javax.swing.JFrame {
             jtfNome.requestFocus();
             return false;
         }
-        if (telefone.length() != 10 && telefone.length() != 11) {
+        if (telefone.length() < 14) {
             JOptionPane.showMessageDialog(this, "Telefone informado esta incorreto", ".:Erro:.", JOptionPane.ERROR_MESSAGE);
             jtfTelefone.requestFocus();
             return false;
@@ -113,14 +113,19 @@ public class pessoaCadastro extends javax.swing.JFrame {
 
         if (btnClick.getText() == "Salvar") {
             PessoaServicos pessoaS = ServicosFactory.getPessoaServicos();
-            if (!ValidaCPF.isCPF(jtfCPF.getText())) {
+            String cpf = jtfCPF.getText().substring(0, 3)
+                    + jtfCPF.getText().substring(4, 7)
+                    + jtfCPF.getText().substring(8, 11)
+                    + jtfCPF.getText().substring(12, 14);
+
+            if (!ValidaCPF.isCPF(cpf)) {
                 JOptionPane.showMessageDialog(this,
                         "CPF informado esta incorreto!!!",
                         ".: Erro :.", JOptionPane.ERROR_MESSAGE);
                 jtfCPF.requestFocus();
                 return false;
             } else try {
-                if (pessoaS.verCPF(jtfCPF.getText())) {
+                if (!pessoaS.verCPF(jtfCPF.getText())) {
                     JOptionPane.showMessageDialog(this,
                             "CPF já cadastrado!!!",
                             ".: Erro :.", JOptionPane.ERROR_MESSAGE);
@@ -156,9 +161,7 @@ public class pessoaCadastro extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jtfNome = new javax.swing.JTextField();
-        jtfCPF = new javax.swing.JTextField();
         jtfEndereco = new javax.swing.JTextField();
-        jtfTelefone = new javax.swing.JTextField();
         jtfIdade = new javax.swing.JTextField();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
@@ -167,11 +170,12 @@ public class pessoaCadastro extends javax.swing.JFrame {
         jBSair = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtPessoas = new javax.swing.JTable();
-        jSeparator3 = new javax.swing.JSeparator();
         jbDeletar = new javax.swing.JButton();
         jbConfirmar = new javax.swing.JButton();
         jbEditar = new javax.swing.JButton();
         jbPesqCPF = new javax.swing.JButton();
+        jtfTelefone = new javax.swing.JFormattedTextField();
+        jtfCPF = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro Pessoa");
@@ -205,13 +209,6 @@ public class pessoaCadastro extends javax.swing.JFrame {
             }
         });
 
-        jtfCPF.setToolTipText("Somente Números");
-        jtfCPF.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jtfCPFKeyTyped(evt);
-            }
-        });
-
         jtfEndereco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtfEnderecoActionPerformed(evt);
@@ -220,18 +217,6 @@ public class pessoaCadastro extends javax.swing.JFrame {
         jtfEndereco.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jtfEnderecoKeyTyped(evt);
-            }
-        });
-
-        jtfTelefone.setToolTipText("");
-        jtfTelefone.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfTelefoneActionPerformed(evt);
-            }
-        });
-        jtfTelefone.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jtfTelefoneKeyTyped(evt);
             }
         });
 
@@ -345,13 +330,29 @@ public class pessoaCadastro extends javax.swing.JFrame {
             }
         });
 
+        try {
+            jtfTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        try {
+            jtfCPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jtfCPF.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtfCPFFocusLost(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addComponent(jSeparator3)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -367,32 +368,25 @@ public class pessoaCadastro extends javax.swing.JFrame {
                             .addComponent(jtfNome)
                             .addComponent(jtfEndereco)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(47, 47, 47)
-                                        .addComponent(jRadioButton2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jtfTelefone)
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jtfCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(15, 15, 15)
-                                                .addComponent(jbPesqCPF)
-                                                .addGap(0, 0, Short.MAX_VALUE)))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jtfTelefone, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                                .addGap(47, 47, 47)
+                                                .addComponent(jRadioButton2))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                                .addComponent(jtfCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jbPesqCPF)))
+                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(9, 9, 9)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jBSalvar)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel6)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jtfIdade, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(18, 18, 18)
-                        .addComponent(jRadioButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jBLimpar))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addComponent(jbEditar)
@@ -401,7 +395,13 @@ public class pessoaCadastro extends javax.swing.JFrame {
                         .addGap(33, 33, 33)
                         .addComponent(jbDeletar)
                         .addGap(32, 32, 32)
-                        .addComponent(jBSair)))
+                        .addComponent(jBSair))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBLimpar)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -418,8 +418,8 @@ public class pessoaCadastro extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jtfCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbPesqCPF))
+                    .addComponent(jbPesqCPF)
+                    .addComponent(jtfCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -428,8 +428,8 @@ public class pessoaCadastro extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jLabel6)
-                    .addComponent(jtfTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtfIdade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtfIdade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtfTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jBSalvar)
@@ -437,10 +437,8 @@ public class pessoaCadastro extends javax.swing.JFrame {
                     .addComponent(jRadioButton1)
                     .addComponent(jRadioButton2)
                     .addComponent(jBLimpar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBSair)
@@ -463,10 +461,6 @@ public class pessoaCadastro extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jtfTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfTelefoneActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfTelefoneActionPerformed
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
         // TODO add your handling code here:
@@ -522,22 +516,6 @@ public class pessoaCadastro extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_jtfIdadeKeyTyped
-
-    private void jtfTelefoneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfTelefoneKeyTyped
-        // TODO add your handling code here:
-        String caracteres = "0987654321";
-        if (!caracteres.contains(evt.getKeyChar() + "")) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_jtfTelefoneKeyTyped
-
-    private void jtfCPFKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfCPFKeyTyped
-        // TODO add your handling code here:
-        String caracteres = "0987654321";
-        if (!caracteres.contains(evt.getKeyChar() + "")) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_jtfCPFKeyTyped
 
     private void jBSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalvarActionPerformed
         // TODO add your handling code here:
@@ -625,83 +603,88 @@ public class pessoaCadastro extends javax.swing.JFrame {
 
     private void jbConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbConfirmarActionPerformed
         // TODO add your handling code here:
-         btnClick = (JButton) evt.getSource();
-    if (validaInputs()) {
-      try {
-      PessoaServicos pessoaS = ServicosFactory.getPessoaServicos();
-      //Pessoa p = cadPessoas.getByDoc(jtfCPF.getText())8;
-      Pessoa p = pessoaS.buscaPessoaBD(jtfCPF.getText());
-      p.setNomePessoa(jtfNome.getText());
-      p.setCpf(jtfCPF.getText());
-      p.setEndereco(jtfEndereco.getText());
-      p.setIdade(Integer.parseInt(jtfIdade.getText()));
-      p.setTelefone(jtfTelefone.getText());
-      if (jRadioButton1.isSelected()) {
-        p.setStatus(true);
-      } else {
-        p.setStatus(false);
-      }
-      //atualiza pessoa no BD com dados na tela
-      pessoaS.atualizarPessoaBD(p);
-      // addRowTo Table();
-      addRowToTableBD();
-      } catch (SQLException ex) {
-        Logger.getLogger(pessoaCadastro.class.getName()).log(Level.SEVERE, null, ex);
-      }
-      jBLimpar.doClick();
-      jBLimpar.setText("Limpar");
-      jTableFilterClear();
-      String msg = "Dados atualizados com sucesso!";
-      JOptionPane.showMessageDialog(this, msg, ".: Atualizar :.",
-          JOptionPane.INFORMATION_MESSAGE);
-    } else {
-      jBLimpar.doClick();
-      jtfCPF.setEnabled(true);
-    }
+        btnClick = (JButton) evt.getSource();
+        if (validaInputs()) {
+            try {
+                PessoaServicos pessoaS = ServicosFactory.getPessoaServicos();
+                //Pessoa p = cadPessoas.getByDoc(jtfCPF.getText())8;
+                Pessoa p = pessoaS.buscaPessoaBD(jtfCPF.getText());
+                p.setNomePessoa(jtfNome.getText());
+                p.setCpf(jtfCPF.getText());
+                p.setEndereco(jtfEndereco.getText());
+                p.setIdade(Integer.parseInt(jtfIdade.getText()));
+                p.setTelefone(jtfTelefone.getText());
+                if (jRadioButton1.isSelected()) {
+                    p.setStatus(true);
+                } else {
+                    p.setStatus(false);
+                }
+                //atualiza pessoa no BD com dados na tela
+                pessoaS.atualizarPessoaBD(p);
+                // addRowTo Table();
+                addRowToTableBD();
+            } catch (SQLException ex) {
+                Logger.getLogger(pessoaCadastro.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            jBLimpar.doClick();
+            jBLimpar.setText("Limpar");
+            jTableFilterClear();
+            String msg = "Dados atualizados com sucesso!";
+            JOptionPane.showMessageDialog(this, msg, ".: Atualizar :.",
+                    JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            jBLimpar.doClick();
+            jtfCPF.setEnabled(true);
+        }
     }//GEN-LAST:event_jbConfirmarActionPerformed
 
     private void jbEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarActionPerformed
         // TODO add your handling code here:
-          try {
-      // TODO add your handling code here:
-      //ajustando comportamento dos botões
-      jbDeletar.setEnabled(false);
-      jBSalvar.setEnabled(false);
-      jbEditar.setEnabled(false);
-      jtfCPF.setEnabled(false);
-      jbPesqCPF.setEnabled(false);
-      jbConfirmar.setEnabled(true);
-      jBLimpar.setText("Cancelar");
-      //carregar os dados da pessoa selecionada nos JTextFields
-      int linha;
-      String cpf;
-      linha = jtPessoas.getSelectedRow();
-      cpf = (String) jtPessoas.getValueAt(linha, 1);
-      //Pessoa p = cadPessoas.getByDoc(cpf);
-      PessoaServicos pessoaS = ServicosFactory.getPessoaServicos();
-      Pessoa p = pessoaS.buscaPessoaBD(cpf);
-      
-      jtfNome.setText(p.getNomePessoa());
-      jtfCPF.setText(p.getCpf());
-      jtfEndereco.setText(p.getEndereco());
-      jtfTelefone.setText(p.getTelefone());
-      jtfIdade.setText(Integer.toString(p.getIdade()));
-      if (p.isStatus()) {
-        jRadioButton1.setSelected(true);
-        jRadioButton2.setSelected(false);
-      } else {
-        jRadioButton1.setSelected(false);
-        jRadioButton2.setSelected(true);
-      }
-    } catch (SQLException ex) {
-      Logger.getLogger(pessoaCadastro.class.getName()).log(Level.SEVERE, null, ex);
-    }
+        try {
+            // TODO add your handling code here:
+            //ajustando comportamento dos botões
+            jbDeletar.setEnabled(false);
+            jBSalvar.setEnabled(false);
+            jbEditar.setEnabled(false);
+            jtfCPF.setEnabled(false);
+            jbPesqCPF.setEnabled(false);
+            jbConfirmar.setEnabled(true);
+            jBLimpar.setText("Cancelar");
+            //carregar os dados da pessoa selecionada nos JTextFields
+            int linha;
+            String cpf;
+            linha = jtPessoas.getSelectedRow();
+            cpf = (String) jtPessoas.getValueAt(linha, 1);
+            //Pessoa p = cadPessoas.getByDoc(cpf);
+            PessoaServicos pessoaS = ServicosFactory.getPessoaServicos();
+            Pessoa p = pessoaS.buscaPessoaBD(cpf);
+
+            jtfNome.setText(p.getNomePessoa());
+            jtfCPF.setText(p.getCpf());
+            jtfEndereco.setText(p.getEndereco());
+            jtfTelefone.setText(p.getTelefone());
+            jtfIdade.setText(Integer.toString(p.getIdade()));
+            if (p.isStatus()) {
+                jRadioButton1.setSelected(true);
+                jRadioButton2.setSelected(false);
+            } else {
+                jRadioButton1.setSelected(false);
+                jRadioButton2.setSelected(true);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(pessoaCadastro.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jbEditarActionPerformed
 
     private void jbPesqCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPesqCPFActionPerformed
         // TODO add your handling code here:
         PessoaServicos pessoaS = ServicosFactory.getPessoaServicos();
-        if (!ValidaCPF.isCPF(jtfCPF.getText())) {
+        String cpf = jtfCPF.getText().substring(0, 3)
+                + jtfCPF.getText().substring(4, 7)
+                + jtfCPF.getText().substring(8, 11)
+                +jtfCPF.getText().substring(12, 14);
+        
+        if (!ValidaCPF.isCPF(cpf)) {
             JOptionPane.showMessageDialog(this,
                     "CPF informado esta incorreto!!!",
                     ".: Erro :.", JOptionPane.ERROR_MESSAGE);
@@ -739,7 +722,7 @@ public class pessoaCadastro extends javax.swing.JFrame {
                 jBSalvar.setEnabled(false);
                 
                 jTableFilterClear();
-                */
+                 */
             }
         } catch (SQLException ex) {
             Logger.getLogger(pessoaCadastro.class.getName()).log(Level.SEVERE, null, ex);
@@ -749,6 +732,13 @@ public class pessoaCadastro extends javax.swing.JFrame {
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton2ActionPerformed
+
+    private void jtfCPFFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfCPFFocusLost
+        // TODO add your handling code here:
+        //860.516.950-87
+        //
+
+    }//GEN-LAST:event_jtfCPFFocusLost
 
     /**
      * @param args the command line arguments
@@ -807,18 +797,17 @@ public class pessoaCadastro extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JButton jbConfirmar;
     private javax.swing.JButton jbDeletar;
     private javax.swing.JButton jbEditar;
     private javax.swing.JButton jbPesqCPF;
     private javax.swing.JTable jtPessoas;
-    private javax.swing.JTextField jtfCPF;
+    private javax.swing.JFormattedTextField jtfCPF;
     private javax.swing.JTextField jtfEndereco;
     private javax.swing.JTextField jtfIdade;
     private javax.swing.JTextField jtfNome;
-    private javax.swing.JTextField jtfTelefone;
+    private javax.swing.JFormattedTextField jtfTelefone;
     // End of variables declaration//GEN-END:variables
 }
 /*int count=0;

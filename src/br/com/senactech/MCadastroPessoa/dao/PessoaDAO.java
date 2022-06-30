@@ -80,11 +80,11 @@ public class PessoaDAO {
         //cria um objeto stat reponsavel por enviar os comandos sql do Java
         //para serem executados dentro do DB
         Statement stat = con.createStatement();
-        boolean verCPF = false;
+        boolean verCPF = true;
 
         try {
             String sql;
-            sql = "select cpf from pessoa where cpf = " + cpf;
+            sql = "select cpf from pessoa where cpf = '" + cpf+"'";
             ResultSet rs = stat.executeQuery(sql);
             while (rs.next()) {
                 verCPF = rs.wasNull();
@@ -107,7 +107,7 @@ public class PessoaDAO {
         Pessoa p = new Pessoa();
         try {
             String sql;
-            sql = "select * from pessoa where cpf = " + cpf;
+            sql = "select * from pessoa where cpf = '" + cpf+"'";
             ResultSet rs = stat.executeQuery(sql);
             while (rs.next()) {
                 //lado do java||lado do banco

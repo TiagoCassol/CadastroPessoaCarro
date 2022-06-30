@@ -492,6 +492,8 @@ public class carroCadastro extends javax.swing.JFrame {
             } else if (!pessoaS.verCPF(jtfCPFProp.getText())) {
                 int id = pessoaS.getIdPessoa(jtfCPFProp.getText());
                 jlNomeProp.setText(pessoaS.getNomePessoa(id));
+            }else{
+                jlNomeProp.setText("Pessoa não cadastrada");
             }
         } catch (SQLException ex) {
             Logger.getLogger(pessoaCadastro.class.getName()).log(Level.SEVERE, null, ex);
@@ -779,6 +781,7 @@ public class carroCadastro extends javax.swing.JFrame {
             jcbMarca.requestFocus();
             return false;
         }
+        
         return true;
     }
 
